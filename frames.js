@@ -1,4 +1,10 @@
-// frames.js：帧号转时间码（基线：一律给零）
+// frames.js：帧号转时间码（整除与取模直接分解，不逐帧累加）
 export function toCode(frame, fps) {
-  return { hours: 0, minutes: 0, seconds: 0, frames: 0 };
+  const totalSeconds = Math.floor(frame / fps);
+  return {
+    hours: Math.floor(totalSeconds / 3600),
+    minutes: Math.floor(totalSeconds / 60) % 60,
+    seconds: totalSeconds % 60,
+    frames: frame % fps
+  };
 }
